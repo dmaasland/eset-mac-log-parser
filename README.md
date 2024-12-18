@@ -1,3 +1,3 @@
 ```shell
-python mac_log_parser.py *.dat
+python parse_mac_log.py *.dat
 ```
