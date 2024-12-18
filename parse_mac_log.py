@@ -1,8 +1,10 @@
 #!/usr/bin/env python
+
 import argparse
 import json
 import logging
 from collections.abc import Generator
+from datetime import datetime
 from pathlib import Path
 
 from dissect.cstruct import cstruct
@@ -113,6 +115,10 @@ def main() -> None:
     for logfile in args.filename:
         logfile_path = Path(logfile)
         for log_item in process_logfile(logfile_path):
+            if "Time" in log_item:
+                time_human = datetime.fromtimestamp(int(log_item["Time"])).isoformat()
+                log_item.update({"TimeHuman": time_human})
+
             print(json.dumps(log_item, indent=4))
 
 
